@@ -3,66 +3,75 @@ package OchoReinas;
 public class Juego {
 
     public static void main(String[] args) {
-        String table [] [] = new String [8][8];
+        String table[][] = new String[8][8];
         fullTable(table);
-        System.out.println("Inserte la Columna ");
-        
-        
-        printTable(table);
-
-        putQueen(table);
-        
+        solveQueens(table, 0); 
     }
-    
-    public static void printTable(String[][] table){
-        System.out.println("");
-        for (int v = 0; v < 8; v++) {
-            for (int h = 0; h < 8; h++) {
-                System.out.print(table[v][h] + " | ");
+
+   
+    public static void solveQueens(String[][] table, int row) {
+        if (row == 8) {
+            printTable(table); 
+            return; 
+        }
+
+       
+        for (int col = 0; col < 8; col++) {
+            if (isSafe(table, row, col)) {
+                table[row][col] = "R"; 
+
+                
+                solveQueens(table, row + 1);
+
+               
+                table[row][col] = "-";
             }
-            System.out.println("");
         }
     }
+
+   
+    public static boolean isSafe(String[][] table, int row, int col) {
+        for (int i = 0; i < row; i++) {
+            if (table[i][col] == "R") {
+                return false;
+            }
+        }
+
+       //Diagonal izquierda
+        for (int i = row, j = col; i >= 0 && j >= 0; i--, j--) {
+            if (table[i][j] == "R") {
+                return false;
+            }
+        }
+
+        //Diagonal derecha
+        for (int i = row, j = col; i >= 0 && j < 8; i--, j++) {
+            if (table[i][j] == "R") {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     
-    public static void fullTable(String[][] table){
+    public static void fullTable(String[][] table) {
         for (int v = 0; v < 8; v++) {
             for (int h = 0; h < 8; h++) {
                 table[v][h] = "-";
             }
         }
     }
+
     
-    public static void putQueen(String[][] table){
-        for (int c = 0; c < 8; c++) {
-            for (int l = 0; l < 8; l++) {
-                if(seeColumn(table,c) == false){
-                    if (seeLine(table,l) == false) {
-                        table[c][l] = "R";
-                        printTable(table);
-                    }
-                }
-            }
-        }
-    }
-    
-    public static boolean seeColumn(String[][] table, int column){
-        for (int h = 0; h < 8; h++) {
-            if (table[h][column] == "R") {
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    public static boolean seeLine(String[][] table, int line){
+    public static void printTable(String[][] table) {
+        System.out.println("Solución encontrada:");
         for (int v = 0; v < 8; v++) {
-            if (table[line][v] == "R") {
-                return true;
+            for (int h = 0; h < 8; h++) {
+                System.out.print(table[v][h] + " | ");
             }
+            System.out.println();
         }
-        return false;
+        System.out.println();
     }
-    
-    
-    
 }
