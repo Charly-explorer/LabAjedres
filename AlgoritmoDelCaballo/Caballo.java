@@ -63,10 +63,10 @@ public class Caballo {
     public void printTable() {
         for (int i = MIN; i <= MAX; i++) {
             for (int j = MIN; j <= MAX; j++) {
-                System.out.printf("%3d ║", table[i][j]);
+                System.out.printf("%3d |", table[i][j]);
             }
             System.out.println();
-            System.out.println("════════════════════════════════════════════");
+            System.out.println("------------------------------------------");
 //            System.out.println("════╬═════╬════╬═════╬════╬═════╬═════╬════╬");
         }
     }

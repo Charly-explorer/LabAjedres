@@ -26,7 +26,7 @@ public class Juego {
                
                 table[row][col] = "-";
             }
-        }
+        }        
     }
 
    
